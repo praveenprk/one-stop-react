@@ -1,3 +1,7 @@
+/* html, body {
+  background-color: #282c34;
+}
+ */
 .App {
   text-align: center;
 }
@@ -11,6 +15,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+li {
+  list-style-type: none;
 }
 
 .App-header {
