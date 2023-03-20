@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import "../../App.css"
+import { addAllTask } from '../../features/todo/todoSlicer';
 import ShowToDo from './ShowToDo';
 
 
 const Todo = () => {
 
   const [task, setTask] = useState(''); // for form only
-  const [allTasks, setAllTasks] = useState([]); // for list creation
   const [isTimeSpecific, setIsTimeSpecific] = useState(false);
   const [atTime, setAtTime] = useState('00:00');
 
-  useEffect(() => {
-    if(allTasks.length > 0)
-      localStorage.setItem("todo", JSON.stringify(allTasks));
-  }, [allTasks]);
-
-
+  const dispatch = useDispatch();
 
   const handleAdd = (e) => {
     e.preventDefault();
-    const updateTask = [
-      ...allTasks,
+    const updateTask = 
       {
         taskName: task,
         date: new Date().toLocaleDateString(),
@@ -29,8 +24,7 @@ const Todo = () => {
         atTime: isTimeSpecific ? atTime : null,
         completed: false
       }
-    ];
-    setAllTasks(updateTask);
+    dispatch(addAllTask(updateTask));
   }
 
   return (
@@ -72,7 +66,7 @@ const Todo = () => {
         </div>
         <input className='btn btn-warning' type="submit" value="Add" />
         </form>
-        <ShowToDo getAllTasks={allTasks} />
+        <ShowToDo />
       </div>
     </>
   );
