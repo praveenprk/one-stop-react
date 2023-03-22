@@ -17,6 +17,7 @@ const Todo = () => {
     e.preventDefault();
     const updateTask = 
       {
+        id: Math.floor(Math.random() * 100000),
         taskName: task,
         date: new Date().toLocaleDateString(),
         type: "work",

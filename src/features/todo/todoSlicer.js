@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { TODO } from '../../constants/constants';
+import { deleteTask } from '../../helpers/todo';
 
 let fromLS = localStorage.getItem("todo");
 fromLS = JSON.parse(fromLS);
@@ -12,24 +14,29 @@ else
 
 
 export const todoSlicer = createSlice({
-  name: 'todo',
+  name: TODO,
   initialState,
   reducers: {
     addAllTask: (state, action) => {
       state.push(action.payload);
       if(state.length)
-        localStorage.setItem("todo", JSON.stringify(state));
+        localStorage.setItem(TODO, JSON.stringify(state));
     },
-    decrement: (state) => {
-      state.value -= 1
+    removeTask: (state, action) => {
+      state = state.filter(task => task.id !== action.payload);
+      deleteTask(action.payload);
+      return state;
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+    removeTodaysTodos: (state) => {
+      let today = new Date().toLocaleDateString();
+      state = state.filter(task => task.date !== today);
+      localStorage.setItem(TODO, JSON.stringify(state));
+    return state;
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addAllTask, decrement, incrementByAmount } = todoSlicer.actions
+export const { addAllTask, removeTask, removeTodaysTodos } = todoSlicer.actions
 
 export default todoSlicer.reducer
