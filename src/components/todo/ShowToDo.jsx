@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { removeTask, removeTodaysTodos } from '../../features/todo/todoSlicer';
+import { removeTask, removeTodaysTodos, tickOffTodoList } from '../../features/todo/todoSlicer';
 // import { ClearToDoList } from './Buttons/ClearToDoList'
 
-const ShowToDo = ({getAllTasks}) => {
+const ShowToDo = () => {
 
   let allTasks;
   
@@ -22,8 +22,16 @@ const ShowToDo = ({getAllTasks}) => {
           allTasks?.map((list, i) => {
           return (
           <div key={i}>
-          <li>
-            <input className='form-check-input' type='checkbox'></input>&nbsp;
+          <li style={{
+              textDecoration: list?.completed === true ? "line-through" : "none"
+            }}>
+            <input
+            className='form-check-input'
+            type='checkbox'
+            onClick={() => {
+              dispatch(tickOffTodoList(list.id));
+            }}
+            />&nbsp;
             {list?.taskName}
           </li>
           <button className='btn btn-danger' onClick={
@@ -39,7 +47,7 @@ const ShowToDo = ({getAllTasks}) => {
       </ul>
       {
         // Show btn only when tasks are there in the list
-      allTasks.length ? <button
+      allTasks?.length ? <button
         className='btn btn-danger'
         onClick={
           (e) => {
