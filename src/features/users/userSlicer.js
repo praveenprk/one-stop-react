@@ -9,9 +9,11 @@ export const userSlicer = createSlice({
     reducers: {
         addUser: (state, action) => {
             state = action.payload
+            document.cookie = `user=${JSON.stringify(state)}`;
             return state;
         },
         logoutUser: (state, action) => {
+        document.cookie = `user=null`;
          return state = action.payload;
         }
     }
