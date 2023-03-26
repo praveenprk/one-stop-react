@@ -47,7 +47,7 @@ const Home = () => {
       Home
       <br/>
     {
-      profile ? <Profile /> : <button onClick={() => login() }>Sign in with Google 🚀 </button>
+      profile ? <Profile user={profile}/> : <button onClick={() => login() }>Sign in with Google 🚀 </button>
     }
     </React.Fragment>
   )
