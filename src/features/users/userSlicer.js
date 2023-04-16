@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { USERS } from "../../constants/constants";
+import { getCookie } from "../../helpers/users";
 
 const initialState = null;
 
@@ -9,12 +10,17 @@ export const userSlicer = createSlice({
     reducers: {
         addUser: (state, action) => {
             state = action.payload
-            document.cookie = `user=${JSON.stringify(state)}`;
+            localStorage.setItem("userInfo", JSON.stringify(state));
+            console.log(`user info`, localStorage.getItem("userInfo"));
             return state;
         },
         logoutUser: (state, action) => {
         document.cookie = `user=null`;
          return state = action.payload;
+        },
+        checkAuth: (state, action) => {
+            console.log(`cookies`, document.cookie);
+            console.log(`cookies type`, typeof document.cookie);
         }
     }
 });

@@ -16,7 +16,9 @@ const Events = () => {
     ]
   }
   
-  const apiCalendar = new ApiCalendar(config)
+  const apiCalendar = new ApiCalendar(config, localStorage.getItem("access_token"));
+  console.log(`api calendar`, apiCalendar);
+  // apiCalendar
   
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
