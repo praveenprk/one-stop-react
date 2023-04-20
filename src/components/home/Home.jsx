@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useGoogleLogin } from '@react-oauth/google';
+// import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, logoutUser } from '../../features/users/userSlicer';
@@ -12,12 +12,14 @@ const Home = () => {
     // console.log(profile);
     const dispatch = useDispatch();
 
-    const login = useGoogleLogin({
+
+    /* const login = useGoogleLogin({
         onSuccess: (codeResponse) => setUser(codeResponse),
         onError: (error) => console.log('Login Failed:', error)
-    });
+    }); */
 
-    useEffect(
+
+    /* useEffect(
         () => {
             if (user) {
               localStorage.setItem("access_token", user.access_token);
@@ -36,7 +38,7 @@ const Home = () => {
             }
         },
         [ user ]
-    );
+    ); */
 
     // log out function to log the user out of google and set the profile array to null
     
@@ -44,9 +46,10 @@ const Home = () => {
   return (
     <React.Fragment>
       Home
-      <br/>
+      
     {
-      profile ? <Profile user={profile}/> : <button onClick={() => login() }>Sign in with Google 🚀 </button>
+      // profile ? <Profile user={profile}/> : <button onClick={() => login() }>Sign in with Google 🚀 </button>
+
     }
     </React.Fragment>
   )

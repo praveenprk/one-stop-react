@@ -15,8 +15,8 @@ export const userSlicer = createSlice({
             return state;
         },
         logoutUser: (state, action) => {
-        document.cookie = `user=null`;
-         return state = action.payload;
+            localStorage.setItem("user", null);
+            return state = action.payload;
         },
         checkAuth: (state, action) => {
             console.log(`cookies`, document.cookie);

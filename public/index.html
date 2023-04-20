@@ -12,11 +12,14 @@
     <meta
     http-equiv="Content-Security-Policy"
     content=
-    "default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com/gsi/client https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+    "default-src *;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com/gsi/client https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
     img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data:;
-    connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;
+    connect-src 'self' https://accounts.google.com/gsi/ https://daily-digitals.firebaseapp.com/ https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;
     style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style;
+    frame-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/ https://daily-digitals.firebaseapp.com/;
     ">
+    <!-- <script src="https://accounts.google.com/gsi/client" onload="console.log(`hhelloo`)"></script> -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>React App</title>
@@ -24,7 +27,6 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-  </body>
-  </body>
-  
+    
+  </body>  
 </html>
