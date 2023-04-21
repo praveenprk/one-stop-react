@@ -4,53 +4,47 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, logoutUser } from '../../features/users/userSlicer';
 import { Profile } from './Profile';
+import { firebaseAppInit, authInit, providerInit } from '../../googleapis/firebaseconfig';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { saveAccessTokenToLS } from '../../localDB/helpers';
 
 const Home = () => {
-
+    
     const [user, setUser] = useState(null);
-    const profile = useSelector(state => state.user)
-    // console.log(profile);
+    const profile = useSelector(state => state.user) || localStorage.getItem("userInfo");
+    let profileJson;
     const dispatch = useDispatch();
+    
+    if(profile)
+    profileJson = JSON.parse(profile)
+    // console.log(profileJson?.email)
 
-
-    /* const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
-    }); */
-
-
-    /* useEffect(
-        () => {
-            if (user) {
-              localStorage.setItem("access_token", user.access_token);
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        },
-                    })
-                    .then((res) => {
-                      console.log(`res`,res);
-                        dispatch(addUser(res.data));  
-                    })
-                    .catch((err) => console.log(err));
-            }
-        },
-        [ user ]
-    ); */
-
-    // log out function to log the user out of google and set the profile array to null
+    function clickToSignIn() {
+      signInWithPopup(authInit, providerInit).then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+      saveAccessTokenToLS(token)
+      dispatch(addUser(JSON.stringify(user.providerData[0])));
+    }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+  });
+    }
     
 
   return (
     <React.Fragment>
       Home
-      
-    {
-      // profile ? <Profile user={profile}/> : <button onClick={() => login() }>Sign in with Google 🚀 </button>
-
-    }
+      {
+        !profileJson?.email ? <button onClick={() => clickToSignIn()}>Sign in with Google</button> : <h1>Hello {profileJson.displayName}</h1>
+      }
     </React.Fragment>
   )
 }
