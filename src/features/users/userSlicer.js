@@ -10,8 +10,8 @@ export const userSlicer = createSlice({
     reducers: {
         addUser: (state, action) => {
             state = action.payload
-            localStorage.setItem("userInfo", JSON.stringify(state));
-            console.log(`user info`, localStorage.getItem("userInfo"));
+            localStorage.setItem("userInfo", state);
+            // console.log(`user info`, localStorage.getItem("userInfo"));
             return state;
         },
         logoutUser: (state, action) => {
