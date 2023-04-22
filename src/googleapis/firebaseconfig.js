@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import { getFirestore, initializeFirestore } from "firebase/firestore";
+import { GoogleAuthProvider, getAuth } from "firebase/auth";
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDPv6Q4WOTze40mdLuYNes4LnO7HHykQtU",
@@ -20,3 +21,10 @@ export const firebaseConfig = {
   export const providerInit = new GoogleAuthProvider();
 
   providerInit.addScope('https://www.googleapis.com/auth/calendar');
+
+  initializeFirestore(firebaseAppInit,{
+    ignoreUndefinedProperties: true
+  })
+
+  export const firestore = getFirestore(firebaseAppInit);
+  // console.log(`frestr`, firestore);
