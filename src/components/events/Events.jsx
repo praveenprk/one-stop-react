@@ -1,46 +1,49 @@
 import axios from 'axios';
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 // import ApiCalendar from 'react-google-calendar-api'
-import { getAllCalendars, getCalendarEvents } from '../../googleapis/calendars';
+import { fetchCalendarEvents } from '../../googleapis/calendars';
 import { getUserEmail, guidGenerator } from '../../localDB/helpers';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { existingEvents } from '../../features/calEvents/calEventsSlicer';
-import { addDoc, collection, setDoc, doc } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc, getCountFromServer } from "firebase/firestore";
 import { firestore as db } from "../../googleapis/firebaseconfig";
+import { store } from '../../store/store';
+import EventsNav from './EventsNav';
 
 const Events = () => {
 
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState();
+  const [isLoading, setLoader] = useState(true);
   const [calendars, setCalendars] = useState([]);
+  
   const dispatchEvents = useDispatch();
   
   let calEvents = {};
+  let calEventsCollect = [];
   const dbRef = collection(db, "calendarEvents");
 
-  getCalendarEvents(getUserEmail())
-  .then(res => {
-    res.data.items.forEach(val => {
-      calEvents = {
-        summary: val.summary,
-        attendees: val.attendees,
-        createdAt: val.created,
-        hangoutLink: val.hangoutLink,
-        start: val.start,
-        eventStatus: val.status,
-      }
-      dispatchEvents(existingEvents(calEvents));
-      setDoc(doc(db, "calendarEvents", guidGenerator()), calEvents)
+  /* 
+  setDoc(doc(db, "calendarEvents", guidGenerator()), calEvents, { merge: true })
         .then(res => console.log(`Document setDoc() written`))
-        .catch(err => console.log(`error with`, err))
-    });
-  } ) ;
+        .catch(err => console.log(`error with`, err));
+  */
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false)
+    }, 2000)
+  }, [])
+
+  useEffect(() => {
+    if(isLoading)
+      {setEvents(fetchCalendarEvents());
+      console.log(`effect ran`);}
+  },[])
+  
   
   return (
-    <React.Fragment>
-      <div>
-        Events<br/>
-        </div>
-    </React.Fragment>
+   
+ (isLoading) ? <h1>Loading</h1> : <EventsNav />
   )
 }
 
