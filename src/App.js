@@ -17,7 +17,10 @@ function App() {
   setTimeout(function(){
     authInit.onAuthStateChanged((user) => {
       user?.getIdToken()
-      .then(res => localStorage.setItem("access_token", res))
+      .then(res => {
+        console.log(`at from onauthstatechanged:`,res);
+        localStorage.setItem("access_token", res)
+        })
       .catch(err => console.log(`error on state changed:`, err))
     },(err) => console.log(`error on auth changed:`, err));
 
