@@ -29,3 +29,8 @@ export const guidGenerator = () => {
     };
     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
+
+export const logout = () => {
+    localStorage.removeItem("user_info");
+    localStorage.removeItem("access_token");
+}
