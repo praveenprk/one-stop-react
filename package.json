@@ -12,6 +12,7 @@
     "firebase": "^9.20.0",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^5.3.4",
@@ -44,7 +45,6 @@
   },
   "devDependencies": {
     "bootstrap": "^5.2.3",
-    "dotenv": "^16.0.3",
-    "mdb-react-ui-kit": "^6.0.0"
+    "dotenv": "^16.0.3"
   }
 }
