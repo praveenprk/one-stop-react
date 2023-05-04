@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {
+/* import {
     MDBTabs,
     MDBTabsItem,
     MDBTabsLink,
     MDBTabsContent,
     MDBTabsPane
-  } from 'mdb-react-ui-kit';
+  } from 'mdb-react-ui-kit'; */
 import AllEvents from './AllEvents';
 
 const EventsNav = () => {
@@ -20,7 +20,7 @@ const EventsNav = () => {
   };
 
   return (
-    <><MDBTabs justify className='mb-3'>
+    {/* <><MDBTabs justify className='mb-3'>
           <MDBTabsItem>
               <MDBTabsLink onClick={() => handleJustifyClick('tab1')} active={justifyActive === 'tab1'}>
                   All Events
@@ -42,7 +42,7 @@ const EventsNav = () => {
               <MDBTabsPane show={justifyActive === 'tab2'}>Tab 2 content</MDBTabsPane>
               <MDBTabsPane show={justifyActive === 'tab3'}>Tab 3 content</MDBTabsPane>
             </MDBTabsContent>
-        </>
+        </> */}
   )
 }
 
