@@ -9,6 +9,7 @@ import { addDoc, collection, setDoc, doc, getCountFromServer } from "firebase/fi
 import { firestore as db } from "../../googleapis/firebaseconfig";
 import { store } from '../../store/store';
 import EventsNav from './EventsNav';
+import AllEvents from './AllEvents';
 
 const Events = () => {
 
@@ -28,22 +29,27 @@ const Events = () => {
         .catch(err => console.log(`error with`, err));
   */
 
-  useEffect(() => {
+  /* useEffect(() => {
     setTimeout(() => {
       setLoader(false)
-    }, 2000)
-  }, [])
+    }, 5000)
+  }, []) */
 
   useEffect(() => {
-    if(isLoading)
-      {setEvents(fetchCalendarEvents());
-      console.log(`effect ran`);}
+    setTimeout(() => {
+      if(isLoading)
+      {
+        setEvents(fetchCalendarEvents());
+        console.log(`effect ran`);
+        setLoader(false);
+      }
+    },3000)
   },[])
   
   
   return (
    
- (isLoading) ? <h1>Loading</h1> : <EventsNav />
+ (isLoading) ? <h1>Loading</h1> : <AllEvents />
   )
 }
 
