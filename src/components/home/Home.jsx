@@ -45,6 +45,9 @@ const Home = () => {
       {
         !profileJson?.email ? <button onClick={() => clickToSignIn()}>Sign in with Google</button> : <h1>Hello {profileJson.displayName}</h1>
       }
+      <br>
+      </br>
+      { profileJson?.email ? <button onClick={() => dispatch(logoutUser())}>Logout</button> : '' }
     </React.Fragment>
   )
 }
