@@ -15,7 +15,8 @@ export const userSlicer = createSlice({
             return state;
         },
         logoutUser: (state, action) => {
-            localStorage.setItem("user", null);
+            localStorage.removeItem("userInfo");
+            localStorage.removeItem("access_token");
             return state = action.payload;
         },
         checkAuth: (state, action) => {
